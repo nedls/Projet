@@ -64,7 +64,7 @@ int main(void){
 		
 		for(int j = 0 ; j < size ; j++){
 			board[j].item = 0;
-			board[j].state = 1;
+			board[j].state = -1;
 		}
 		
 		real_board[i] = board;
@@ -77,12 +77,14 @@ int main(void){
 	printf("Voici la grille :\n\n");
 	show_board(real_board , mode , size);
 	
+	/*
 	for(int i = 0 ; i < size ; i++){
 		
 		for(int j = 0 ; j < size ; j++){
 			real_board[i][j].state = -1;
 		}
 	}
+	*/
 	
 	time_t time_1 = time(NULL);
 	
