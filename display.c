@@ -140,7 +140,7 @@ void show_board(Case *board[], int mode , int size){
 					else if(board[i][j].item == 9){
 						
 						printf("|");
-						color("5");
+						//color("5");
 						color("1");
 						color("31");
 						printf("%c", pion(board[i][j].item));

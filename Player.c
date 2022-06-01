@@ -1,5 +1,6 @@
 #include"Player.h"
 #include"tools.h"
+#include"color.h"
 
 FILE *high_score = NULL;
 
@@ -12,15 +13,22 @@ Player create_player(){
 	Player player;
 	int a;
 	
+	color("1");
+	
 	printf("Saisir un pseudo : ");
 	scanf("%s", player.pseudo);
 	
+	color("0");
+	
 	do{
+		color("1");
+		
 		printf("- Saisir 0 pour le mode normal 9*9 et 10 bombes\n- Saisir 1 pour le mode difficile 16*16 et 40 bombes : ");
 		a = scanf("%d", &player.mode);
 		clean_stdin();
 		printf("\n");
 		
+		color("0");
 		
 	} while(player.mode != 0 && player.mode != 1 || a == 0);
 	

@@ -64,7 +64,7 @@ int main(void){
 		
 		for(int j = 0 ; j < size ; j++){
 			board[j].item = 0;
-			board[j].state = -1;
+			board[j].state = 1;
 		}
 		
 		real_board[i] = board;
@@ -74,17 +74,15 @@ int main(void){
 	place_the_bomb(real_board , nmb_bomb , size);
 	nmb_flag = nmb_bomb;
 	
-	printf("Voici la grille :\n");
+	printf("Voici la grille :\n\n");
 	show_board(real_board , mode , size);
 	
-	/*
 	for(int i = 0 ; i < size ; i++){
 		
 		for(int j = 0 ; j < size ; j++){
 			real_board[i][j].state = -1;
 		}
 	}
-	*/
 	
 	time_t time_1 = time(NULL);
 	
@@ -107,7 +105,7 @@ int main(void){
 	}
 	
 	do{
-		printf("1. Voir la liste des high score\n2. Ne ppas voir la liste des high score : ");
+		printf("-Saisir 1 pour voir la liste des high score\n-Saisir 2 pour ne pas voir la liste des high score : ");
 		a = scanf("%d",&see);
 		clean_stdin();
 		

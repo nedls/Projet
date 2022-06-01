@@ -96,25 +96,36 @@ int game_set(int *line , int *column , int mode){
 	int a;
 	
 	do{
-		printf("1. Découvrir une case\n");
-		printf("2. Placer un marqueur de bombe : ");
+		color("1");
+		
+		printf("- Saisir 1 pour découvrir une case\n");
+		printf("- Saisir 2 pour placer un marqueur de bombe : ");
 		a = scanf("%d", &decision);
 		clean_stdin();
+		printf("\n");
+		
+		color("0");
 		
 	}while(decision != 1 && decision != 2 || a == 0);
+	
+	printf("\n");
 	
 	if(mode == 0){
 	
 		if(decision == 1){
 			
 			do{
+				color("1");
+				
 				printf("Saisir les coordonnées de la case à découvrir (ex: B7) : ");
 				
 				scanf("%c", &col);
-				scanf("%d", &lig);
+				a = scanf("%d", &lig);
 				clean_stdin();
 				
-			}while(col > 73 || col < 65 || lig > 8 || lig < 0);
+				color("0");
+				
+			}while(col > 73 || col < 65 || lig > 8 || lig < 0 || a == 0);
 			
 			col -= 65;
 			
@@ -122,9 +133,12 @@ int game_set(int *line , int *column , int mode){
 			*(column) = col;
 					
 			printf("\n");
+			
 		}
 		
 		else if(decision == 2){
+		
+			color("1");
 			
 			printf("(Pour enlever le marqueur cliquez sur la même case)\n\n");
 			
@@ -132,10 +146,10 @@ int game_set(int *line , int *column , int mode){
 				printf("Saisir les coordonnées de la case dans laquelle placer le marqueur (ex: B7) : ");
 				
 				scanf("%c", &col);
-				scanf("%d", &lig);
+				a = scanf("%d", &lig);
 				clean_stdin();
 				
-			}while(col > 73 || col < 65 || lig > 8 || lig < 0);
+			}while(col > 73 || col < 65 || lig > 8 || lig < 0 || a == 0);
 			
 			col -= 65;
 			
@@ -143,6 +157,8 @@ int game_set(int *line , int *column , int mode){
 			*(column) = col;
 					
 			printf("\n");
+			
+			color("0");
 		}
 		return decision;
 	}
@@ -152,11 +168,15 @@ int game_set(int *line , int *column , int mode){
 		if(decision == 1){
 			
 			do{
+				color("1");
+				
 				printf("Saisir les coordonnées de la case à découvrir (ex: B7) : ");
 				
 				scanf("%c", &col);
 				scanf("%d", &lig);
 				clean_stdin();
+				
+				color("0");
 				
 			}while(col > 80 || col < 65 || lig > 15|| lig < 0);
 			
@@ -169,6 +189,8 @@ int game_set(int *line , int *column , int mode){
 		}
 		
 		else if(decision == 2){
+			
+			color("1");
 			
 			printf("(Pour enlever le marqueur cliquez sur la même case)\n\n");
 			
@@ -187,6 +209,8 @@ int game_set(int *line , int *column , int mode){
 			*(column) = col;
 					
 			printf("\n");
+			
+			color("0");
 		}
 		return decision;
 	}
@@ -204,13 +228,16 @@ int game(Case *board[] , int nmb_flag , int line , int column , int mode , int s
 	int set_game = 0;
 
 	do{
-		printf("Nombre de drapeaux disponibles : %d\n", nmb_flag);
+		color("1");
+		
+		printf("Nombre de drapeaux disponibles : %d\n\n", nmb_flag);
 		
 		end = is_finish(board , size);
 		
-		set_game = game_set(&line , &column , mode);
-		
 		if(end == 0){
+		
+			set_game = game_set(&line , &column , mode);
+		
 			if(set_game == 1){
 					
 				discover = discover_case(board , line , column , size);
@@ -224,8 +251,14 @@ int game(Case *board[] , int nmb_flag , int line , int column , int mode , int s
 					
 				else if(discover == -2){
 					printf("Vous ne pouvez pas découvrir cette case !\n\n");
+					show_board(board , mode , size);
 				}
-				else{
+				
+				else if(discover == 1){
+					show_board(board , mode , size);
+				}
+				
+				else if (discover == 0){
 					show_board(board , mode , size);
 				}
 			}
@@ -237,7 +270,7 @@ int game(Case *board[] , int nmb_flag , int line , int column , int mode , int s
 					flag = place_flag(board , line , column);
 						
 					if(flag == -1){
-						printf("Vous ne pouvez pas placer de marquer ici !\n\n");
+						printf("Vous ne pouvez pas placer de drapeaux ici !\n\n");
 					}
 						
 					else if(flag == 0){
@@ -256,6 +289,8 @@ int game(Case *board[] , int nmb_flag , int line , int column , int mode , int s
 				}
 			}
 		}
+		
+		color("0");
 		
 	}while( end != 1 && end != 2);
 	
@@ -292,17 +327,21 @@ int discover_case(Case *board[], int i , int j , int size){
 	
 	int control_array = 0; 
 	
-	if(board[i][j].item == 9){
-		return -1;
+	if(board[i][j].state == 2){
+		return -2;
 	}
 	
-	else if(board[i][j].state == 2){
-		return -2;
+	else if(board[i][j].state == 1){
+		return 1;
 	}
 	
 	else if(board[i][j].state == -1){
 		
-		if(board[i][j].item < 9 && board[i][j].item > 0 && board[i][j].state != 2){
+		if(board[i][j].item == 9){
+			return -1;
+		}
+		
+		else if(board[i][j].item < 9 && board[i][j].item > 0 && board[i][j].state != 2){
 					
 			board[i][j].state = 1;
 			return 0;
