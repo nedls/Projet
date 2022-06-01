@@ -1,5 +1,6 @@
 # Projet
 School project
+
 This code is a school project. This is a demineur game.
 In order to compile it you have to enter the command "make" on the terminal. 
 Then you have to enter the command "./demineur" and you can play to Demineur.
@@ -13,13 +14,3 @@ This the same process if you want to place a flag and if you want to pull out a 
 You win when you have discovered all the case which are not bomb and you lose if you have click on a bomb.
 
 ########################################
-
-
-  /$$$$$$                            /$$       /$$                           /$$      
- /$$__  $$                          | $$      | $$                          | $$      
-| $$  \__/  /$$$$$$   /$$$$$$   /$$$$$$$      | $$       /$$   /$$  /$$$$$$$| $$   /$$
-| $$ /$$$$ /$$__  $$ /$$__  $$ /$$__  $$      | $$      | $$  | $$ /$$_____/| $$  /$$/
-| $$|_  $$| $$  \ $$| $$  \ $$| $$  | $$      | $$      | $$  | $$| $$      | $$$$$$/ 
-| $$  \ $$| $$  | $$| $$  | $$| $$  | $$      | $$      | $$  | $$| $$      | $$_  $$ 
-|  $$$$$$/|  $$$$$$/|  $$$$$$/|  $$$$$$$      | $$$$$$$$|  $$$$$$/|  $$$$$$$| $$ \  $$
- \______/  \______/  \______/  \_______/      |________/ \______/  \_______/|__/  \__/
