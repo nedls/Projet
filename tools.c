@@ -1,6 +1,8 @@
 #include<stdio.h>
 #include<time.h>
 #include"tools.h"
+#include"color.h"
+
 
 /*
 This function clean the buffer
@@ -40,10 +42,12 @@ This function display the score
 */	
 void affiche_score(int min , int score){
 	
+	color("1");
 	if(score > 9){
 		printf("Score : %d:%d \n", min, score);
 	}
 	else{
 		printf("Score : %d:0%d\n", min, score);
 	}
+	color("0");
 }

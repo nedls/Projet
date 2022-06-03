@@ -74,7 +74,9 @@ int main(void){
 	place_the_bomb(real_board , nmb_bomb , size);
 	nmb_flag = nmb_bomb;
 	
+	color("1");
 	printf("Voici la grille :\n\n");
+	color("0");
 	show_board(real_board , mode , size);
 	
 	/*
