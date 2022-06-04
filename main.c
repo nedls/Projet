@@ -47,7 +47,7 @@ int main(void){
 		nmb_bomb = 40; 
 	}
 	
-	//// déclaration tableau 2D ////
+	//// 2D board declaration////
 	real_board = malloc(size*sizeof(Case*));
 	
 	if(real_board == NULL){

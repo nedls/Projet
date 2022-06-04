@@ -5,8 +5,8 @@
 #include"color.h"
 
 /*
-This function look if board[i][j] exist and if board[i][j] = 9
-If board[i][j] = 9 or board[i][j] dosen't exist it'sreturn 1 else it's return 0
+This function look if board[i][j] exist and if board[i][j] is a bomb.
+If board[i][j] is a bomb or board[i][j] dosen't exist it's return 1 else it's return 0
 */
 
 int control(Case *board[], int i , int j , int size){	
@@ -27,7 +27,7 @@ int control(Case *board[], int i , int j , int size){
 }
 
 /*
-This function place the bomb randomly on the board
+This function place the bomb randomly on the board and update the case arround.
 */
 
 void place_the_bomb(Case *board[] , int nmb_bomb , int size){
@@ -64,8 +64,7 @@ void place_the_bomb(Case *board[] , int nmb_bomb , int size){
 }
 
 /*
-This function look if the player has win. It's return 0 if there is a case which is a bomb and there is not flag on it in this case the game is not finish.
-If there is no such case it's return 1 and the player has won
+This function look if the player has win. It's look over the board and if there is a case which is not a bomb and wich is not discovered it's return 0. Else it's return 1.
 */
 int is_finish(Case *board[] , int size){
 	
@@ -85,7 +84,7 @@ int is_finish(Case *board[] , int size){
 }
 
 /*
-This function ask to the the player if he wants to place a flag or discover a case and return the decison
+This function ask to the the player if he wants to place a flag or discover a case and returns the decison
 */
 
 int game_set(int *line , int *column , int mode){
@@ -99,7 +98,7 @@ int game_set(int *line , int *column , int mode){
 		color("1");
 		
 		printf("- Saisir 1 pour découvrir une case\n");
-		printf("- Saisir 2 pour placer un marqueur de bombe : ");
+		printf("- Saisir 2 pour placer un drapeau : ");
 		a = scanf("%d", &decision);
 		clean_stdin();
 		printf("\n");
@@ -140,10 +139,10 @@ int game_set(int *line , int *column , int mode){
 		
 			color("1");
 			
-			printf("(Pour enlever le marqueur cliquez sur la même case)\n\n");
+			printf("(Pour retirer le drapeau cliquez sur la même case)\n\n");
 			
 			do{
-				printf("Saisir les coordonnées de la case dans laquelle placer le marqueur (ex: B7) : ");
+				printf("Saisir les coordonnées de la case dans laquelle placer le drapeau (ex: B7) : ");
 				
 				scanf("%c", &col);
 				a = scanf("%d", &lig);
@@ -192,10 +191,10 @@ int game_set(int *line , int *column , int mode){
 			
 			color("1");
 			
-			printf("(Pour enlever le marqueur cliquez sur la même case)\n\n");
+			printf("(Pour retirer le drapeau cliquez sur la même case)\n\n");
 			
 			do{
-				printf("Saisir les coordonnées de la case dans laquelle placer le marqueur (ex: B7) : ");
+				printf("Saisir les coordonnées de la case dans laquelle placer le drapeau (ex: B7) : ");
 				
 				scanf("%c", &col);
 				scanf("%d", &lig);
@@ -217,7 +216,7 @@ int game_set(int *line , int *column , int mode){
 }
 
 /*
-This function controls game turns 
+This function controls game turns. It tells to the player how many flags he has, then it shows the board with the player's decision and repeat this until the player lose or win.
 */
 
 int game(Case *board[] , int nmb_flag , int line , int column , int mode , int size){
@@ -250,7 +249,9 @@ int game(Case *board[] , int nmb_flag , int line , int column , int mode , int s
 				}
 					
 				else if(discover == -2){
+					color("31");
 					printf("Vous ne pouvez pas découvrir cette case !\n\n");
+					color("0");
 					show_board(board , mode , size);
 				}
 				
@@ -270,7 +271,10 @@ int game(Case *board[] , int nmb_flag , int line , int column , int mode , int s
 					flag = place_flag(board , line , column);
 						
 					if(flag == -1){
+						color("31");
 						printf("Vous ne pouvez pas placer de drapeaux ici !\n\n");
+						color("0");
+						show_board(board , mode , size);
 					}
 						
 					else if(flag == 0){
@@ -285,7 +289,10 @@ int game(Case *board[] , int nmb_flag , int line , int column , int mode , int s
 				}
 				
 				else{
+					color("31");
 					printf("Vous n'avez plus de drapeaux disponibles\n");
+					color("0");
+					show_board(board , mode , size);
 				}
 			}
 		}
@@ -320,7 +327,10 @@ int place_flag(Case *board[], int i , int j){
 }
 
 /*
-This function allows to discover a case. If the case which is selected is empty the all the case arround are discover. 
+This function enable to discover a case. If the case which is selected is empty all the case arround, which are empty, are uncovered.
+If the case which is selected is a flag it return -2.
+If the case which is selected is already discovered it return 1.
+If the case which is selected is not discovered the function looks if the item is between 1 and 8 or if it's 0. If the item is between 1 and 8 the case is uncovered and if the item is 0 the case and all the case around which are not bomb are uncovered.
 */
 
 int discover_case(Case *board[], int i , int j , int size){

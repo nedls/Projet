@@ -17,7 +17,7 @@ void clean_stdin(void){
 }
 
 /*
-This function return the score of the player , the duration of the game
+This function return the score of the player, the duration of the game
 */
 int stopwatch(time_t start, time_t end){
 
@@ -28,7 +28,7 @@ int stopwatch(time_t start, time_t end){
 	return score;
 }
 /*
-This function convert the score in min : sec
+This function convert the score of the player in min : sec
 */
 void convert_score(int *min , int *score){
 
@@ -38,7 +38,7 @@ void convert_score(int *min , int *score){
 	}
 }
 /*
-This function display the score
+This function display the score of the player
 */	
 void affiche_score(int min , int score){
 	
